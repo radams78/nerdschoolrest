@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/radams78/nerdschoolrest/issues"
   },
-  "homepage": "https://github.com/radams78/nerdschoolrest#readme"
+  "homepage": "https://github.com/radams78/nerdschoolrest#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
 }
