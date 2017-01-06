@@ -21,6 +21,16 @@ class TvShowService {
 	this.tvShows.push(newTvShow);
 	return newTvShow;
     }
+
+    update(id, fields) {
+	const tvShow = this.tvShows.find(tvShow => tvShow.id == id);
+	Object.assign(tvShow, fields);
+	return tvShow;
+    }
+
+    delete(id) {
+	this.tvShows = this.tvShows.filter(tvShow => tvShow.id != id);
+    }
 }
 
 module.exports = new TvShowService();
