@@ -14,6 +14,10 @@ class ReviewService {
 	return this.reviews.find(review => review.id === id);
     }
 
+    getByRelatedItemId(tvShowId) {
+	return this.reviews.filter(review => review.relatedItemId === tvShowId);
+    }
+
     createReview(content, score, relatedItemId) {
 	const newReview = new Review(createId(), content, score, relatedItemId);
 	this.reviews.push(newReview);

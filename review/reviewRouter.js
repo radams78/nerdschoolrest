@@ -1,32 +1,35 @@
 const express = require('express');
-const reviewService = require('./reviewService');
 
-const reviewRouter = express.Router();
+class ReviewRouter extends express.Router {
+    constructor(reviewService) {
+	super();
+	
+	this.get('/', (req, res) => {
+	    res.json(reviewService.getAll());
+	});
 
-reviewRouter.get('/', (req, res) => {
-    res.json(reviewService.getAll());
-});
+	this.post('/', (req, res) => {
+	    const content = req.body.content;
+	    const score = req.body.score;
+	    const relatedItemId = req.body.relatedItemId;
+	    
+	    console.log(`Creating review: ${content}, ${score}, ${relatedItemId}`);
+	    res.status(201).send(reviewService.createReview(content, score, relatedItemId));
+	});
 
-reviewRouter.post('/', (req, res) => {
-    const content = req.body.content;
-    const score = req.body.score;
-    const relatedItemId = req.body.relatedItemId;
+	this.route('/:id').get((req, res) => {
+	    res.send(reviewService.getById(req.params.id));
+	});
 
-    console.log(`Creating review: ${content}, ${score}, ${relatedItemId}`);
-    res.status(201).send(reviewService.createReview(content, score, relatedItemId));
-});
+	this.route('/:id').put((req, res) => {
+	    res.send(reviewService.update(req.params.id, req.body));
+	});
 
-reviewRouter.route('/:id').get((req, res) => {
-    res.send(reviewService.getById(req.params.id));
-});
+	this.route('/:id').delete((req, res) => {
+	    reviewService.delete(req.params.id);
+	    res.json(reviewService.getAll());
+	});
+    }
+}
 
-reviewRouter.route('/:id').put((req, res) => {
-    res.send(reviewService.update(req.params.id, req.body));
-});
-
-reviewRouter.route('/:id').delete((req, res) => {
-    reviewService.delete(req.params.id);
-    res.json(reviewService.getAll());
-});
-
-module.exports = reviewRouter;
+module.exports = ReviewRouter;

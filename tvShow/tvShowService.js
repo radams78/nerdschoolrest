@@ -16,8 +16,8 @@ class TvShowService {
 	return this.tvShows.find(tvShow => tvShow.id == id);
     }
 
-    createTvShow(name, genre) {
-	const newTvShow = new TvShow(createId(), name, genre);
+    createTvShow(name, genre, host) {
+	const newTvShow = new TvShow(createId(), name, genre, host);
 	this.tvShows.push(newTvShow);
 	return newTvShow;
     }
