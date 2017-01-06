@@ -16,4 +16,8 @@ reviewRouter.post('/', (req, res) => {
     res.status(201).send(reviewService.createReview(content, score, relatedItemId));
 });
 
+reviewRouter.route('/:id').get((req, res) => {
+    res.send(reviewService.getById(req.params.id));
+});
+
 module.exports = reviewRouter;
