@@ -1,21 +1,18 @@
 const express = require('express');
-const TvShow = require('./TvShow');
-const TvShowService = require('./tvShowService');
+const tvShowService = require('./tvShowService');
 
 const tvShowRouter = express.Router();
 
-const tvShowService = new TvShowService();
-
-var tvShows = tvShowService.getAll();
-
 tvShowRouter.get('/', (req, res) => {
-    res.json(tvShows);
+    res.json(tvShowService.getAll());
 });
+
+tvShowRouter.post('/', (req, res) => {
+    res.send(tvShowService.createTvShow(req.body.name, req.body.genre));
+});
+
 tvShowRouter.route('/:tvShowId').get((req, res) => {
-    const id = req.params.tvShowId;
-    
-    console.log(`Fetching TV show with id: ${id}`);
-    res.json(tvShowService.getById(id));
+    res.send(tvShowService.getById(req.params.tvShowId));
 });
 
 module.exports = tvShowRouter;
