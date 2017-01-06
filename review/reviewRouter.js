@@ -20,4 +20,13 @@ reviewRouter.route('/:id').get((req, res) => {
     res.send(reviewService.getById(req.params.id));
 });
 
+reviewRouter.route('/:id').put((req, res) => {
+    res.send(reviewService.update(req.params.id, req.body));
+});
+
+reviewRouter.route('/:id').delete((req, res) => {
+    reviewService.delete(req.params.id);
+    res.json(reviewService.getAll());
+});
+
 module.exports = reviewRouter;

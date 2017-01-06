@@ -19,6 +19,17 @@ class ReviewService {
 	this.reviews.push(newReview);
 	return newReview;
     }
+
+    update(id, fields) {
+	const review = this.reviews.find(review => review.id === id);
+	Object.assign(review, fields);
+	return review;
+    }
+
+    delete(id) {
+	this.reviews = this.reviews.filter(review => review.id != id);
+    }
+
 }
 
 module.exports = new ReviewService();
